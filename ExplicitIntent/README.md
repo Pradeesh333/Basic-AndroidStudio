@@ -40,26 +40,25 @@ Registeration Number :212221240038
 
 ```
 package com.example.explicit;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-
+import android.widget.EditText;
 public class MainActivity extends AppCompatActivity {
-
+    public EditText input;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        input = findViewById(R.id.editTextTextPersonName2);
     }
-
     public void callSecondActivity(View view){
-        Intent i = new Intent(getApplicationContext(), MainActivity2.class);
+        Intent i = new Intent(MainActivity.this,MainActivity2.class);
+        i.putExtra("number",input.getText().toString());
         startActivity(i);
     }
-
 }
 ```
 
@@ -79,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="callSecondActivity"
-        android:text="next"
+        android:text="Factorial"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -90,12 +89,24 @@ public class MainActivity extends AppCompatActivity {
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Page1"
+        android:text="Page 1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.221" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:text="Enter Number"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 ```
 
@@ -108,14 +119,32 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 public class MainActivity2 extends AppCompatActivity {
+
+
+    TextView txt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+
+        Bundle b = getIntent().getExtras();
+
+        int no = Integer.parseInt(b.getString("number"));
+        long fac=1;
+
+        for(int i=no; i>0; i--)
+        {
+            fac *= i;
+        }
+        txt = findViewById(R.id.textView3);
+        txt.setText("Factorial of " + no + " is " + fac);
+
     }
     public void callFirstActivity(View view){
         Intent i1 = new Intent(getApplicationContext(), MainActivity.class);
@@ -158,13 +187,25 @@ public class MainActivity2 extends AppCompatActivity {
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.183" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="161dp"
+        android:layout_height="53dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 ```
 
 ## OUTPUT
 
-![](op1.png)
-![](op2.png)
+![](op_1.png)
+![](op_2.png)
+![](op_3.png)
 
 ## RESULT
 
