@@ -37,30 +37,49 @@ Registeration Number :212221240038
 ## MainActivity.java:
 
 ```
-package com.manoj.autocompletetextview;
+package com.example.loginpage;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    AutoCompleteTextView autocomplete;
 
-    String[] arr = { "Bing","Google","Yandex","Yahoo","DuckDuckGo","Swisscows","StartPage","Gibiru"};
-
+    EditText editName, editPassword;
+    TextView result;
+    Button buttonSubmit, buttonReset;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        autocomplete = (AutoCompleteTextView)
-                findViewById(R.id.autoCompleteTextView1);
+        editName = (EditText) findViewById(R.id.e1);
+        editPassword = (EditText) findViewById(R.id.e2);
+        result = (TextView) findViewById(R.id.textView);
+        buttonSubmit = (Button) findViewById(R.id.button3);
+        buttonReset = (Button) findViewById(R.id.button4);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                (this,android.R.layout.select_dialog_item, arr);
+        buttonSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = editName.getText().toString();
+                String password = editPassword.getText().toString();
+                result.setText("Name:\t" + name + "\nPassword:\t" + password );
+            }
+        });
 
-        autocomplete.setThreshold(2);
-        autocomplete.setAdapter(adapter);
+        buttonReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editName.setText("");
+                editPassword.setText("");
+                result.setText("");
+                editName.requestFocus();
+            }
+        });
     }
 }
 ```
